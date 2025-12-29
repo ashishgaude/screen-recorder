@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screen Recorder</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      width: 320px;
+      padding: 0;
+      min-height: unset;
+      height: auto;
+      background: transparent; /* Let container handle bg */
+    }
+    .container {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      border-radius: 0; /* Full width for popup */
+      border: none;
+      box-shadow: none;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon-circle {
+      width: 64px;
+      height: 64px;
+      background: rgba(139, 92, 246, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: var(--primary-color);
+    }
+    h1 { font-size: 1.5rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon-circle">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 10L19.553 7.724C19.8114 7.60918 20.1064 7.62568 20.3506 7.7686C20.5947 7.91152 20.7599 8.16398 20.7937 8.44439C20.7979 8.47963 20.8 8.51523 20.8 8.55099V15.449C20.8 15.4848 20.7979 15.5204 20.7937 15.5556C20.7599 15.836 20.5947 16.0885 20.3506 16.2314C20.1064 16.3743 19.8114 16.3908 19.553 16.276L15 14M5 18H13C14.1046 18 15 17.1046 15 16V8C15 6.89543 14.1046 6 13 6H5C3.89543 6 3 6.89543 3 8V16C3 17.1046 3.89543 18 5 18Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h1>Screen Recorder</h1>
+    <p>Capture screen, windows & audio instantly.</p>
+    
+    <button id="startBtn" class="btn btn-primary">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      New Recording
+    </button>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
