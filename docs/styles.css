@@ -202,6 +202,10 @@ video {
 
 /* Status Dot */
 .status-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -211,15 +215,16 @@ video {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-muted);
-  margin-bottom: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  pointer-events: none;
 }
 
 .status-badge.recording {
-  background: rgba(239, 68, 68, 0.2);
-  color: #fca5a5;
-  border: 1px solid rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.4);
+  color: #fff;
+  border: 1px solid rgba(239, 68, 68, 0.6);
 }
 
 .status-dot {
@@ -231,6 +236,39 @@ video {
 
 .status-badge.recording .status-dot {
   animation: pulse 2s infinite;
+}
+
+/* Store Badge */
+.store-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3), 
+              0 0 0 1px rgba(255,255,255,0.05) inset;
+  position: relative;
+}
+
+.store-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 12px rgba(0,0,0,0.4), 
+              0 0 0 1px rgba(255,255,255,0.1) inset,
+              0 0 20px rgba(66, 133, 244, 0.3);
+  border-color: #4285F4;
+}
+
+.store-badge svg {
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 0 2px rgba(255,255,255,0.3));
 }
 
 @keyframes pulse {
