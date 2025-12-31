@@ -15,6 +15,101 @@ const statusBadge = document.getElementById('statusBadge');
 const statusText = document.getElementById('statusText');
 const placeholderText = document.getElementById('placeholderText');
 const micToggle = document.getElementById('micToggle');
+const camToggle = document.getElementById('camToggle');
+const cameraBubble = document.getElementById('cameraBubble');
+const cameraFeed = document.getElementById('cameraFeed');
+const pipBtn = document.getElementById('pipBtn');
+let cameraStream;
+
+// --- Camera Bubble Logic ---
+camToggle.addEventListener('change', async () => {
+  if (camToggle.checked) {
+    try {
+      cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
+      cameraFeed.srcObject = cameraStream;
+      cameraBubble.classList.remove('hidden');
+    } catch (e) {
+      console.warn("Camera access denied:", e);
+      camToggle.checked = false;
+      alert("Camera access is required for this feature.");
+    }
+  } else {
+    stopCamera();
+  }
+});
+
+// PiP Logic
+pipBtn.addEventListener('click', async () => {
+  try {
+    if (document.pictureInPictureElement) {
+      await document.exitPictureInPicture();
+    } else if (document.pictureInPictureEnabled) {
+      await cameraFeed.requestPictureInPicture();
+    } else {
+      alert("Picture-in-Picture is not supported in this browser.");
+    }
+  } catch (err) {
+    console.error("PiP Error:", err);
+  }
+});
+
+function stopCamera() {
+  if (document.pictureInPictureElement) {
+    document.exitPictureInPicture().catch(console.error);
+  }
+  if (cameraStream) {
+    cameraStream.getTracks().forEach(track => track.stop());
+    cameraStream = null;
+  }
+  cameraFeed.srcObject = null;
+  cameraBubble.classList.add('hidden');
+}
+
+// Draggable Logic
+let isDragging = false;
+let currentX;
+let currentY;
+let initialX;
+let initialY;
+let xOffset = 0;
+let yOffset = 0;
+
+cameraBubble.addEventListener("mousedown", dragStart);
+document.addEventListener("mouseup", dragEnd);
+document.addEventListener("mousemove", drag);
+
+function dragStart(e) {
+  initialX = e.clientX - xOffset;
+  initialY = e.clientY - yOffset;
+
+  if (e.target === cameraBubble || e.target === cameraFeed) {
+    isDragging = true;
+  }
+}
+
+function dragEnd(e) {
+  initialX = currentX;
+  initialY = currentY;
+  isDragging = false;
+}
+
+function drag(e) {
+  if (isDragging) {
+    e.preventDefault();
+    currentX = e.clientX - initialX;
+    currentY = e.clientY - initialY;
+
+    xOffset = currentX;
+    yOffset = currentY;
+
+    setTranslate(currentX, currentY, cameraBubble);
+  }
+}
+
+function setTranslate(xPos, yPos, el) {
+  el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+}
+
 const audioVisualizer = document.getElementById('audioVisualizer');
 let visualizerContext = audioVisualizer.getContext('2d');
 let visualizerAnimationId;

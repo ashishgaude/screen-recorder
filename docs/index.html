@@ -101,6 +101,15 @@
         <canvas id="audioVisualizer" width="50" height="20" class="audio-visualizer hidden"></canvas>
       </div>
 
+      <label class="checkbox-container">
+        <input type="checkbox" id="camToggle">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+          <circle cx="12" cy="13" r="4"></circle>
+        </svg>
+        Add Camera
+      </label>
+
       <button id="startBtn" class="btn btn-primary">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
            <circle cx="12" cy="12" r="10"></circle>
@@ -170,6 +179,17 @@
         </a>
       </div>
     </div>
+  </div>
+  <div id="cameraBubble" class="camera-bubble hidden">
+    <video id="cameraFeed" autoplay muted playsinline></video>
+    <button id="pipBtn" class="pip-btn" title="Pop out (stays on top)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+        <polyline points="7 3 7 8 15 8"></polyline>
+      </svg>
+    </button>
+    <div class="resize-handle"></div>
   </div>
   <script src="script.js"></script>
 </body>
