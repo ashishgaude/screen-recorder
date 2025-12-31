@@ -15,6 +15,71 @@ const statusBadge = document.getElementById('statusBadge');
 const statusText = document.getElementById('statusText');
 const placeholderText = document.getElementById('placeholderText');
 const micToggle = document.getElementById('micToggle');
+const audioVisualizer = document.getElementById('audioVisualizer');
+let visualizerContext = audioVisualizer.getContext('2d');
+let visualizerAnimationId;
+let visualizerAnalyser;
+
+// --- Audio Visualizer Logic ---
+function startVisualizer(stream) {
+  audioVisualizer.classList.remove('hidden'); // Show when recording starts
+  
+  if (!audioContext) {
+    audioContext = new AudioContext();
+  }
+  
+  // We need to create a new source for the visualizer to avoid interfering with the recorder's graph
+  // if they are sharing the same AudioContext, but here we might need to be careful.
+  // Actually, we can just hook into the existing micStream.
+  
+  const source = audioContext.createMediaStreamSource(stream);
+  visualizerAnalyser = audioContext.createAnalyser();
+  visualizerAnalyser.fftSize = 64; 
+  source.connect(visualizerAnalyser);
+  
+  const bufferLength = visualizerAnalyser.frequencyBinCount;
+  const dataArray = new Uint8Array(bufferLength);
+  
+  function draw() {
+    visualizerAnimationId = requestAnimationFrame(draw);
+    visualizerAnalyser.getByteFrequencyData(dataArray);
+    
+    visualizerContext.clearRect(0, 0, audioVisualizer.width, audioVisualizer.height);
+    
+    // Create gradient
+    const gradient = visualizerContext.createLinearGradient(0, 0, audioVisualizer.width, 0);
+    gradient.addColorStop(0, '#8b5cf6'); // Violet
+    gradient.addColorStop(1, '#06b6d4'); // Cyan
+    visualizerContext.fillStyle = gradient;
+
+    // Draw symmetrical waveform
+    const barWidth = (audioVisualizer.width / bufferLength); 
+    let x = 0;
+    
+    for(let i = 0; i < bufferLength; i++) {
+      let barHeight = (dataArray[i] / 255) * audioVisualizer.height;
+      
+      // Center the bars vertically
+      let y = (audioVisualizer.height - barHeight) / 2;
+      
+      // Rounded caps logic (simulated by simple rect for performance, but centered looks nicer)
+      if (barHeight > 0) {
+          visualizerContext.fillRect(x, y, barWidth - 1, barHeight);
+      }
+      
+      x += barWidth;
+    }
+  }
+  draw();
+}
+
+function stopVisualizer() {
+  if (visualizerAnimationId) {
+    cancelAnimationFrame(visualizerAnimationId);
+  }
+  visualizerContext.clearRect(0, 0, audioVisualizer.width, audioVisualizer.height);
+  audioVisualizer.classList.add('hidden'); // Hide when stopped
+}
 
 // Check for mobile device
 function checkMobile() {
@@ -51,6 +116,10 @@ startBtn.addEventListener('click', async () => {
             noiseSuppression: true
           }
         });
+        
+        // Start visualizer with the new stream
+        startVisualizer(micStream);
+        
       } catch (e) {
         console.warn("Microphone access denied or error:", e);
         alert("Microphone access failed. Recording will proceed without mic audio.");
@@ -138,6 +207,8 @@ function stopRecording() {
   if (mediaRecorder && mediaRecorder.state !== 'inactive') {
     mediaRecorder.stop();
   }
+  
+  stopVisualizer(); // Stop the visualizer
   
   if (screenStream) {
     screenStream.getTracks().forEach(track => track.stop());
