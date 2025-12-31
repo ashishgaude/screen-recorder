@@ -2,8 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online screen recorder with no signup required. Capture your screen, windows, or tabs directly in your browser with high-quality audio mixing and complete privacy.">
+  <meta name="keywords" content="free online screen recorder, screen recorder no signup, record screen online, browser screen recorder, free screen capture, no download screen recorder, privacy focused recorder">
+  <meta name="author" content="Screen Recorder">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free Online Screen Recorder - No Signup Required">
+  <meta property="og:description" content="Record your screen for free with no signup. Professional browser-based capture with privacy at its core.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/ashish/screen-recorder/main/main.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Free Online Screen Recorder - No Signup Required">
+  <meta property="twitter:description" content="Record your screen for free with no signup. Professional browser-based capture with privacy at its core.">
+  <meta property="twitter:image" content="https://raw.githubusercontent.com/ashish/screen-recorder/main/main.png">
+
   <link rel="icon" type="image/png" href="icons/icon48.png">
-  <title>Screen Recorder Session</title>
+  <title>Free Online Screen Recorder - No Signup Required</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     /* Custom override for recorder layout if needed */
@@ -12,6 +29,9 @@
 </head>
 <body>
   <div class="container">
+    <h1>Free Online Screen Recorder</h1>
+    <p>No signup required. Capture your screen instantly for free.</p>
+
     <div id="statusBadge" class="status-badge">
       <span id="statusDot" class="status-dot"></span>
       <span id="statusText">Ready to Record</span>
@@ -67,7 +87,25 @@
         Download Recording
       </button>
     </div>
+
+    <section class="features-grid">
+      <div class="feature-item">
+        <h3>No Signup Required</h3>
+        <p>Start recording immediately without creating an account or providing an email.</p>
+      </div>
+      <div class="feature-item">
+        <h3>100% Free</h3>
+        <p>Use all features without any cost, watermarks, or time limits on your recordings.</p>
+      </div>
+      <div class="feature-item">
+        <h3>Privacy Focused</h3>
+        <p>Your recordings are processed locally in your browser and never uploaded to any server.</p>
+      </div>
+    </section>
   </div>
+  <footer style="margin-top: 2rem; color: var(--text-muted); font-size: 0.8rem;">
+    <p>Open Source Screen Recorder - <a href="https://github.com/ashish/screen-recorder" style="color: var(--primary-color); text-decoration: none;">View on GitHub</a></p>
+  </footer>
   <script src="script.js"></script>
 </body>
 </html>
