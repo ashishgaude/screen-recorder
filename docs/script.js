@@ -194,3 +194,35 @@ function updateUIState(state) {
     downloadBtn.classList.remove('hidden');
   }
 }
+
+// --- Donation Widget Logic ---
+function switchTab(tabId) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.textContent.toLowerCase().includes(tabId)) {
+      btn.classList.add('active');
+    }
+  });
+
+  // Update content
+  document.querySelectorAll('.tab-content').forEach(content => {
+    content.classList.remove('active');
+  });
+  document.getElementById(`tab-${tabId}`).classList.add('active');
+}
+
+function copyUPI() {
+  const upiId = document.getElementById('upi-id-text').innerText;
+  navigator.clipboard.writeText(upiId).then(() => {
+    const originalText = document.getElementById('upi-id-text').innerText;
+    document.getElementById('upi-id-text').innerText = 'Copied!';
+    setTimeout(() => {
+      document.getElementById('upi-id-text').innerText = originalText;
+    }, 2000);
+  });
+}
+
+// Global scope for HTML onclick access
+window.switchTab = switchTab;
+window.copyUPI = copyUPI;

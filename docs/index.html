@@ -28,13 +28,40 @@
   </style>
 </head>
 <body>
-  <div class="bmc-container">
-    <div class="bmc-qr">
-      <img src="bmc_qr.png" alt="Scan to Donate">
+  <div class="donation-widget-container">
+    <!-- Popup Content -->
+    <div class="donation-popup">
+      <div class="donation-tabs">
+        <button class="tab-btn active" onclick="switchTab('bmc')">☕️ BMC</button>
+        <button class="tab-btn" onclick="switchTab('upi')">🇮🇳 UPI</button>
+      </div>
+      
+      <!-- BMC Content -->
+      <div id="tab-bmc" class="tab-content active">
+        <div class="qr-wrapper">
+          <img src="bmc_qr.png" alt="BMC QR" class="qr-img">
+        </div>
+        <a href="https://www.buymeacoffee.com/ashishgaude" target="_blank" class="action-btn bmc-btn">
+          Support on BMC
+        </a>
+      </div>
+
+      <!-- UPI Content -->
+      <div id="tab-upi" class="tab-content">
+        <div class="qr-wrapper">
+          <img src="upi.jpeg" alt="UPI QR" class="qr-img custom-qr">
+        </div>
+        <div class="upi-id-box" onclick="copyUPI()">
+          <span id="upi-id-text">ashish.gaude4@okaxis</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+        </div>
+      </div>
     </div>
-    <a href="https://www.buymeacoffee.com/ashishgaude" target="_blank" class="bmc-button">
-      <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee">
-    </a>
+
+    <!-- Main Trigger Button -->
+    <button class="donation-trigger">
+      <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Support" class="trigger-img">
+    </button>
   </div>
   <div class="container">
     <h1>Free Online Screen Recorder</h1>
