@@ -276,7 +276,7 @@ video {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  z-index: 9999;
+  z-index: 10001; /* Higher than mobile-overlay (10000) */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -522,4 +522,51 @@ video {
   font-size: 0.85rem;
   margin: 0;
   color: var(--text-muted);
+}
+
+/* Mobile Overlay */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.98);
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.mobile-content svg {
+  width: 64px;
+  height: 64px;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.mobile-content h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.mobile-content p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+
+.mobile-actions {
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .mobile-overlay.active {
+    display: flex;
+  }
 }

@@ -16,6 +16,18 @@ const statusText = document.getElementById('statusText');
 const placeholderText = document.getElementById('placeholderText');
 const micToggle = document.getElementById('micToggle');
 
+// Check for mobile device
+function checkMobile() {
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+  if (isMobile) {
+    document.getElementById('mobileOverlay').classList.remove('hidden');
+    document.getElementById('mobileOverlay').classList.add('active');
+  }
+}
+
+// Initialize
+checkMobile();
+
 startBtn.addEventListener('click', async () => {
   try {
     const includeMic = micToggle.checked;
