@@ -3,9 +3,7 @@
   "name": "Screen Recorder",
   "version": "1.0",
   "description": "Record your desktop, specific windows, or Chrome tabs.",
-  "permissions": [
-    "tabs"
-  ],
+  "permissions": [],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
